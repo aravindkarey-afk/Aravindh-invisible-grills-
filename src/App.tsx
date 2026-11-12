@@ -36,7 +36,7 @@ export default function App() {
         <Reviews />
         <Contact initialService={requestedService} />
       </main>
-      <Footer />
+      <Footer onRequest={requestService} />
       <FloatingActions />
     </>
   );

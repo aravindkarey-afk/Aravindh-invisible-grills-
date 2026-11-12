@@ -23,12 +23,12 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 124px;
     -webkit-text-size-adjust: 100%;
   }
 
   section[id] {
-    scroll-margin-top: 92px;
+    scroll-margin-top: 104px;
   }
 
   body {

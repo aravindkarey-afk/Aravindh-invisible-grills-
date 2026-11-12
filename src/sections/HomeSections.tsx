@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { CONTACT, HERO_SLIDES, LOCALITY_GROUPS, WHY_US } from "../lib/data";
-import { IMG } from "../assets/refimg";
+import { CONTACT, HERO_SLIDES, LOCALITY_GROUPS, TOP_STATS, WHY_US, waLink } from "../lib/data";
+import { IMG } from "../assets/img";
 import { Stars } from "../components/Logo";
 import { SectionHead } from "../components/SectionHead";
 import {
@@ -10,16 +10,25 @@ import {
   Award,
   Check,
   Clipboard,
+  Eye,
   Layers,
-  Mail,
   MapPin,
   Phone,
   ShieldCheck,
-  Sparkle,
   Sun,
+  Tag,
   WhatsApp,
 } from "../components/Icons";
 import { cn } from "../utils/cn";
+
+const HERO_CARDS = [
+  { image: IMG.heroBalcony, title: "Balcony Invisible Grills", meta: "15 Yrs Warranty", alt: "Invisible Grill for Balconies in Hyderabad" },
+  { image: IMG.bedroomWindow, title: "Window Invisible Grills", meta: "15 Yrs Warranty", alt: "Invisible Grill for Windows in Hyderabad" },
+  { image: IMG.safetyNet, title: "Balcony Safety Nets", meta: "HDPE", alt: "Balcony Safety Nets in Hyderabad" },
+  { image: IMG.birdNet, title: "Pets & Monkey Safety Nets", meta: "Heavy Duty", alt: "Pets and Monkey Safety Nets in Hyderabad" },
+  { image: IMG.familyBalcony, title: "Children Safety Nets", meta: "Child Safe", alt: "Children Safety Nets in Hyderabad" },
+  { image: IMG.birdSpikes, title: "Bird & Pigeon Spikes", meta: "SS 304", alt: "Bird and Pigeon Spikes in Hyderabad" },
+];
 
 /* ------------------------------------------------------------------ HERO */
 
@@ -36,25 +45,30 @@ export function Hero() {
   const slide = HERO_SLIDES[active];
 
   return (
-    <section id="home" className="relative bg-white">
+    <section id="home" className="relative overflow-hidden bg-white">
       <div
         aria-hidden
-        className="pointer-events-none absolute bottom-0 left-0 hidden h-[75%] w-[46%] lg:block"
+        className="pointer-events-none absolute -top-24 -left-20 hidden h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,rgba(35,160,75,0.13),transparent_65%)] lg:block"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-0 left-0 hidden h-[70%] w-[46%] lg:block"
         style={{
           backgroundImage:
-            "repeating-linear-gradient(90deg, rgba(35,160,75,0.13) 0 1px, transparent 1px 26px)",
+            "repeating-linear-gradient(90deg, rgba(35,160,75,0.14) 0 1px, transparent 1px 26px)",
           maskImage: "linear-gradient(to top right, black, transparent 72%)",
           WebkitMaskImage: "linear-gradient(to top right, black, transparent 72%)",
         }}
       />
-      <div className="wrap relative grid items-start gap-9 pt-8 pb-8 lg:grid-cols-[0.47fr_0.53fr] lg:gap-10 lg:pt-10 lg:pb-10">
+
+      <div className="wrap relative grid items-center gap-9 pt-9 pb-9 lg:grid-cols-[0.48fr_0.52fr] lg:gap-11 lg:pt-12 lg:pb-12">
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-md bg-leaf-soft px-3 py-2 text-[10px] font-bold tracking-[0.08em] text-[#1d6b3a] uppercase sm:text-[11px]">
             <ShieldCheck className="h-3.5 w-3.5 text-brand" />
             Hyderabad&apos;s Trusted Safety Experts
           </span>
 
-          <h1 className="mt-5 max-w-[560px] font-display text-[clamp(2.1rem,3.9vw,3.3rem)] leading-[1.13] font-extrabold tracking-[-0.045em] text-ink">
+          <h1 className="mt-5 max-w-[580px] font-display text-[clamp(2.05rem,3.9vw,3.3rem)] leading-[1.13] font-extrabold tracking-[-0.045em] text-ink">
             Invisible Grills &amp; Safety Nets for{" "}
             <span className="text-brand">Safer Homes, Brighter Views</span>
           </h1>
@@ -65,15 +79,13 @@ export function Hero() {
             and installed at your doorstep anywhere in Hyderabad.
           </p>
 
-          <div className="mt-5 flex flex-col gap-2.5">
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#233a52] sm:text-[12.5px]">
-                <Stars /> 4.9 rated by customers
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#233a52] sm:text-[12.5px]">
-                <ShieldCheck className="h-4 w-4 text-brand" /> 5-year warranty
-              </span>
-            </div>
+          <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2.5">
+            <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#233a52] sm:text-[12.5px]">
+              <Stars /> 4.9 rated by customers
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#233a52] sm:text-[12.5px]">
+              <ShieldCheck className="h-4 w-4 text-brand" /> 5-year warranty
+            </span>
             <span className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#233a52] sm:text-[12.5px]">
               <Clipboard className="h-4 w-4 text-brand" /> Free site measurement
             </span>
@@ -99,13 +111,13 @@ export function Hero() {
             </a>
           </div>
 
-          <p className="mt-4 text-[11px] font-medium text-[#7a8a97]">
-            ★ Rated 4.9/5 by 5,000+ Hyderabad families · Free doorstep measurement
+          <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-medium text-[#7a8a97]">
+            <span>Serving Gachibowli, Kondapur, Kokapet, Miyapur &amp; all of Hyderabad</span>
           </p>
         </div>
 
         <div className="relative w-full">
-          <div className="relative aspect-[1.5/1] overflow-hidden rounded-xl bg-sand sm:aspect-[1.45/1] lg:aspect-[1.36/1]">
+          <div className="relative aspect-[1.5/1] overflow-hidden rounded-2xl bg-sand shadow-[0_24px_60px_-30px_rgba(10,34,64,0.45)] sm:aspect-[1.45/1] lg:aspect-[1.32/1]">
             {HERO_SLIDES.map((item, i) => (
               <img
                 key={item.image}
@@ -114,7 +126,7 @@ export function Hero() {
                 fetchPriority={i === 0 ? "high" : "auto"}
                 loading={i === 0 ? "eager" : "lazy"}
                 className={cn(
-                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-500",
+                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
                   i === active ? "opacity-100" : "opacity-0"
                 )}
               />
@@ -154,13 +166,46 @@ export function Hero() {
                   aria-label={`Show ${item.title}`}
                   aria-pressed={i === active}
                   className={cn(
-                    "h-1.5 w-1.5 rounded-full transition-colors",
-                    i === active ? "bg-[#5fd486]" : "bg-white/80 hover:bg-white"
+                    "h-1.5 rounded-full transition-all",
+                    i === active ? "w-5 bg-[#5fd486]" : "w-1.5 bg-white/80 hover:bg-white"
                   )}
                 />
               ))}
             </div>
           </div>
+
+          <div className="absolute -top-3 -left-3 hidden rounded-xl bg-white px-3.5 py-2.5 shadow-[0_10px_30px_rgba(10,34,64,0.16)] sm:block">
+            <p className="flex items-center gap-1.5 text-[10px] font-bold tracking-[0.08em] text-[#586a79] uppercase">
+              <ShieldCheck className="h-3.5 w-3.5 text-brand" /> 15 Yrs Warranty
+            </p>
+            <p className="mt-1 text-[11px] font-semibold text-ink">SS 316 Marine Grade Cables</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="border-y border-ink/6 bg-[#f7faf8]">
+        <div className="wrap grid grid-cols-2 gap-2.5 py-4 sm:grid-cols-3 lg:grid-cols-6">
+          {HERO_CARDS.map((card) => (
+            <a
+              key={card.title}
+              href="#services"
+              className="group relative overflow-hidden rounded-lg border border-ink/8 bg-white"
+            >
+              <img
+                src={card.image}
+                alt={card.alt}
+                loading="lazy"
+                className="aspect-[16/11] w-full object-cover transition-transform duration-500 group-hover:scale-[1.06]"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#06172f]/85 via-[#06172f]/20 to-transparent" />
+              <span className="absolute top-1.5 right-1.5 rounded bg-[#23a04b] px-1.5 py-0.5 text-[8px] font-bold tracking-[0.04em] text-white uppercase">
+                {card.meta}
+              </span>
+              <span className="absolute right-2 bottom-1.5 left-2 text-[10px] leading-tight font-bold text-white">
+                {card.title}
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -178,21 +223,21 @@ const aboutBullets = [
 
 export function About() {
   return (
-    <section id="about" className="border-y border-ink/6 bg-[#f7faf8] py-14 sm:py-16">
-      <div className="wrap grid items-center gap-9 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+    <section id="about" className="bg-white py-14 sm:py-16">
+      <div className="wrap grid items-center gap-9 lg:grid-cols-[0.92fr_1.08fr] lg:gap-12">
         <div className="relative">
-          <div className="overflow-hidden rounded-xl">
+          <div className="overflow-hidden rounded-2xl">
             <img
-              src={IMG.s26}
-              alt="Aravindh invisible grills installed on a modern Hyderabad balcony"
+              src={IMG.heroReference}
+              alt="Invisible grill balcony with open city view in Hyderabad"
               loading="lazy"
-              className="aspect-[1.35/1] w-full object-cover"
+              className="aspect-[1.28/1] w-full object-cover"
             />
           </div>
           <div className="absolute top-3 left-3 rounded-lg bg-white px-3.5 py-2.5 shadow-[0_6px_20px_rgba(10,34,64,0.14)]">
-            <p className="font-display text-[1.5rem] leading-none font-extrabold text-brand">5,000+</p>
+            <p className="font-display text-[1.6rem] leading-none font-extrabold text-brand">5,000+</p>
             <p className="mt-1 text-[8.5px] font-bold tracking-[0.08em] text-[#586a79] uppercase">
-              Happy Families Secured
+              Happy families secured
             </p>
           </div>
           <div className="absolute right-3 bottom-3 inline-flex items-center gap-1.5 rounded-md bg-brand px-3 py-2 text-[10px] font-bold text-white shadow-md">
@@ -204,8 +249,8 @@ export function About() {
           <span className="text-[10px] font-bold tracking-[0.1em] text-brand uppercase sm:text-[11px]">
             Welcome to Aravindh Invisible Grills
           </span>
-          <h2 className="section-title mt-3 max-w-[18ch]">Safety That Doesn&apos;t Steal Your View</h2>
-          <p className="mt-4 max-w-[560px] text-[13px] leading-[1.8] text-[#56697b] sm:text-[14px]">
+          <h2 className="section-title mt-3 max-w-[20ch]">Safety That Doesn&apos;t Steal Your View</h2>
+          <p className="mt-4 max-w-[580px] text-[13px] leading-[1.8] text-[#56697b] sm:text-[14px]">
             Traditional iron grills cage your home, block sunlight and spoil the look of your
             building. Our high-tensile stainless steel invisible grills and engineered safety nets
             give your family complete fall protection while your balconies and windows stay bright,
@@ -231,6 +276,19 @@ export function About() {
               Explore our services <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
+
+          <dl className="mt-7 grid grid-cols-2 gap-3 border-t border-ink/8 pt-5 sm:grid-cols-4">
+            {TOP_STATS.map((stat) => (
+              <div key={stat.label}>
+                <dt className="font-display text-[1.35rem] leading-none font-extrabold text-ink">
+                  {stat.value}
+                </dt>
+                <dd className="mt-1.5 text-[10px] leading-snug font-semibold tracking-[0.03em] text-[#7a8a97] uppercase">
+                  {stat.label}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </div>
     </section>
@@ -239,7 +297,14 @@ export function About() {
 
 /* ---------------------------------------------------------------- WHY US */
 
-const whyIcons = { shield: ShieldCheck, sun: Sun, eye: Sparkle, bolt: Layers, award: Award, tag: Layers };
+const whyIcons = {
+  shield: ShieldCheck,
+  sun: Sun,
+  eye: Eye,
+  bolt: Layers,
+  award: Award,
+  tag: Tag,
+};
 
 export function WhyUs() {
   return (
@@ -256,7 +321,7 @@ export function WhyUs() {
             return (
               <article
                 key={item.title}
-                className="rounded-lg border border-ink/8 bg-white p-5 transition-shadow hover:shadow-[0_10px_30px_rgba(10,34,64,0.07)]"
+                className="rounded-xl border border-ink/8 bg-white p-5 transition-shadow hover:shadow-[0_14px_34px_rgba(10,34,64,0.08)]"
               >
                 <span className="grid h-10 w-10 place-items-center rounded-lg bg-leaf-soft text-brand">
                   <Icon className="h-5 w-5" />
@@ -268,7 +333,7 @@ export function WhyUs() {
           })}
         </div>
 
-        <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-xl bg-navy px-5 py-5 text-white sm:flex-row sm:items-center sm:px-7">
+        <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl bg-navy px-5 py-5 text-white sm:flex-row sm:items-center sm:px-7">
           <div>
             <p className="font-display text-[1.2rem] leading-tight font-extrabold">
               Not sure what your balcony needs?
@@ -277,9 +342,19 @@ export function WhyUs() {
               Our team measures, recommends and quotes — free, with no obligation.
             </p>
           </div>
-          <a href="#contact" className="btn btn-green !py-3 !text-[12px]">
-            Book a Free Measurement <ArrowUpRight className="h-4 w-4" />
-          </a>
+          <div className="flex flex-wrap gap-2">
+            <a href="#contact" className="btn btn-green !py-3 !text-[12px]">
+              Book a Free Measurement <ArrowUpRight className="h-4 w-4" />
+            </a>
+            <a
+              href={waLink("invisible grills")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn !border !border-white/25 !bg-transparent !py-3 !text-[12px] text-white hover:!bg-white/10"
+            >
+              <WhatsApp className="h-4 w-4" /> WhatsApp
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -290,7 +365,7 @@ export function WhyUs() {
 
 export function Areas() {
   return (
-    <section id="areas" className="border-y border-ink/6 bg-[#f7faf8] py-14 sm:py-16">
+    <section id="areas" className="bg-white py-14 sm:py-16">
       <div className="wrap">
         <SectionHead
           title="Service Areas in Hyderabad"
@@ -299,7 +374,7 @@ export function Areas() {
 
         <div className="mt-9 grid gap-4 md:grid-cols-3">
           {LOCALITY_GROUPS.map((group) => (
-            <div key={group.title} className="rounded-lg border border-ink/8 bg-white p-5">
+            <div key={group.title} className="rounded-xl border border-ink/8 bg-white p-5">
               <div className="flex items-center gap-2 border-b border-ink/8 pb-3">
                 <MapPin className="h-4 w-4 text-brand" />
                 <h3 className="text-[13px] font-bold text-ink">{group.title}</h3>
@@ -319,7 +394,7 @@ export function Areas() {
           ))}
         </div>
 
-        <div className="mt-7 rounded-lg border border-brand/20 bg-leaf-soft px-5 py-4">
+        <div className="mt-7 rounded-xl border border-brand/20 bg-leaf-soft px-5 py-4">
           <div className="flex flex-col items-start justify-between gap-3 sm:flex-row sm:items-center">
             <p className="text-[12.5px] text-[#2d4a3a]">
               <span className="font-bold text-ink">Don&apos;t see your area listed?</span> We cover
@@ -336,26 +411,5 @@ export function Areas() {
         </div>
       </div>
     </section>
-  );
-}
-
-export function ContactStrip() {
-  return (
-    <div className="bg-white">
-      <div className="wrap flex flex-wrap items-center justify-between gap-3 py-4">
-        <p className="text-[12px] font-medium text-[#56697b]">
-          Need help choosing? Message us a photo of your balcony or window.
-        </p>
-        <div className="flex flex-wrap gap-2">
-          <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" className="btn btn-green !py-2.5 !text-[11.5px]">
-            <WhatsApp className="h-3.5 w-3.5" />
-            <span>WhatsApp</span>
-          </a>
-          <a href={CONTACT.emailHref} className="btn btn-outline !py-2.5 !text-[11.5px]">
-            <Mail className="h-3.5 w-3.5" /> Email us
-          </a>
-        </div>
-      </div>
-    </div>
   );
 }

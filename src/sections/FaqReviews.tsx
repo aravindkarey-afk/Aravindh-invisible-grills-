@@ -1,40 +1,9 @@
 import { useState } from "react";
-import { REVIEWS } from "../lib/data";
+import { FAQS, REVIEWS } from "../lib/data";
 import { Stars } from "../components/Logo";
 import { ArrowUpRight, Check, ChevronDown, Quote } from "../components/Icons";
 import { cn } from "../utils/cn";
 import { SectionHead } from "../components/SectionHead";
-
-const faqs = [
-  {
-    q: "What are invisible grills and how do they work?",
-    a: "Invisible grills are high-tensile SS 316 marine-grade stainless steel cables tensioned on heavy aluminium tracks across balconies, windows and open spaces. From a few metres away they are virtually invisible, preserving your outside view and ventilation while providing up to 400 kg load-bearing protection.",
-  },
-  {
-    q: "Do invisible grills come with a warranty?",
-    a: "Yes! Our SS 316 invisible grills come with a 15-year product warranty on the stainless steel cables, ensuring complete peace of mind and lifelong safety.",
-  },
-  {
-    q: "How can I get a quotation for invisible grills or safety nets?",
-    a: "We offer completely free doorstep measurements anywhere in Hyderabad and Telangana. Our technician will visit your site, measure your space, and provide an exact written quote with zero hidden charges.",
-  },
-  {
-    q: "Are invisible grills safe for children and pets?",
-    a: "Absolutely. We provide customized cable spacing (2-inch, 3-inch, or 4-inch) so children cannot climb or slip through, and pets cannot squeeze through. The cables have high tensile strength and smooth nylon coatings.",
-  },
-  {
-    q: "Will invisible grills rust over time in Hyderabad's weather?",
-    a: "No. We use genuine marine-grade SS 316 stainless steel with a protective transparent nylon sheath that prevents rust, sun discoloration, and weathering for decades.",
-  },
-  {
-    q: "How long does installation take?",
-    a: "Most residential balcony and window installations are completed within 2 to 4 hours on the same day as measurement. Our technicians work neatly and leave zero mess.",
-  },
-  {
-    q: "Do you install safety nets and bird spikes across all of Hyderabad?",
-    a: "Yes, we provide doorstep measurement and same-day installation across all areas of Greater Hyderabad and Secunderabad, including Gachibowli, Kondapur, Kukatpally, Miyapur, Hitec City, Uppal, and all surrounding localities.",
-  },
-];
 
 export function Faq() {
   const [open, setOpen] = useState(0);
@@ -48,7 +17,7 @@ export function Faq() {
         />
 
         <div className="mx-auto mt-7 max-w-[840px] space-y-2.5">
-          {faqs.map((faq, index) => {
+          {FAQS.map((faq, index) => {
             const isOpen = open === index;
             return (
               <div
@@ -70,9 +39,7 @@ export function Faq() {
                     <span
                       className={cn(
                         "grid h-7 w-7 shrink-0 place-items-center rounded-full transition-all",
-                        isOpen
-                          ? "rotate-180 bg-brand text-white"
-                          : "bg-[#f1f5f8] text-[#5b6b7b]"
+                        isOpen ? "rotate-180 bg-brand text-white" : "bg-[#f1f5f8] text-[#5b6b7b]"
                       )}
                     >
                       <ChevronDown className="h-3.5 w-3.5" />
@@ -122,7 +89,7 @@ export function Reviews() {
           {visible.map((review) => (
             <article
               key={review.name}
-              className="flex flex-col rounded-lg border border-ink/8 bg-[#f7faf8] p-5"
+              className="flex flex-col rounded-xl border border-ink/8 bg-[#f7faf8] p-5"
             >
               <div className="flex items-center justify-between">
                 <Stars />

@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
-import { CONTACT, SERVICES, type Service } from "../lib/data";
+import {
+  CONTACT,
+  SERVICE_CATEGORIES,
+  SERVICES,
+  waLink,
+  type Service,
+  type ServiceCategory,
+} from "../lib/data";
 import { ArrowUpRight, Check, Close, Phone, ShieldCheck, WhatsApp } from "../components/Icons";
 import { SectionHead } from "../components/SectionHead";
+import { cn } from "../utils/cn";
+
+type Filter = "All" | ServiceCategory;
 
 export function Services({ onRequest }: { onRequest: (title: string) => void }) {
   const [selected, setSelected] = useState<Service | null>(null);
+  const [filter, setFilter] = useState<Filter>("All");
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     if (!selected) return;
@@ -18,6 +30,9 @@ export function Services({ onRequest }: { onRequest: (title: string) => void }) 
     };
   }, [selected]);
 
+  const filtered = filter === "All" ? SERVICES : SERVICES.filter((s) => s.category === filter);
+  const visible = showAll ? filtered : filtered.slice(0, 9);
+  const remaining = Math.max(filtered.length - 9, 0);
 
   return (
     <section id="services" className="border-y border-ink/6 bg-[#f7faf8] py-14 sm:py-16">
@@ -27,22 +42,57 @@ export function Services({ onRequest }: { onRequest: (title: string) => void }) 
           subtitle="Explore our specialised safety, bird-control and home-utility solutions"
         />
 
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service) => (
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
+          {(["All", ...SERVICE_CATEGORIES] as Filter[]).map((option) => (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={filter === option}
+              onClick={() => {
+                setFilter(option);
+                setShowAll(false);
+              }}
+              className={cn(
+                "rounded-full border px-3.5 py-2 text-[11px] font-semibold transition-colors",
+                filter === option
+                  ? "border-brand bg-brand text-white"
+                  : "border-ink/12 bg-white text-[#52667a] hover:border-brand/40 hover:text-brand"
+              )}
+            >
+              {option}
+              <span
+                className={cn(
+                  "ml-1.5 text-[9.5px] font-bold",
+                  filter === option ? "text-white/70" : "text-[#9aa7b2]"
+                )}
+              >
+                {option === "All"
+                  ? SERVICES.length
+                  : SERVICES.filter((s) => s.category === option).length}
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {visible.map((service) => (
             <article
               key={service.title}
-              className="group flex flex-col overflow-hidden rounded-lg border border-ink/8 bg-white transition-shadow hover:shadow-[0_12px_32px_rgba(10,34,64,0.09)]"
+              className="group flex flex-col overflow-hidden rounded-xl border border-ink/8 bg-white transition-shadow hover:shadow-[0_14px_34px_rgba(10,34,64,0.09)]"
             >
               <div className="relative overflow-hidden">
                 <img
                   src={service.image}
-                  alt={service.title}
+                  alt={`${service.title} in Hyderabad`}
                   loading="lazy"
-                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
-                <span className="absolute top-2.5 left-2.5 rounded bg-[#e8f7ec] px-2 py-1 text-[9px] font-bold tracking-[0.03em] text-brand-dark shadow-sm">
-                  {service.badge ?? service.short}
-                </span>
+                {service.badge && (
+                  <span className="absolute top-2.5 left-2.5 inline-flex items-center gap-1 rounded bg-white/95 px-2 py-1 text-[9px] font-bold tracking-[0.03em] text-brand-dark shadow-sm">
+                    <ShieldCheck className="h-2.5 w-2.5" />
+                    {service.badge}
+                  </span>
+                )}
               </div>
 
               <div className="flex flex-1 flex-col p-4">
@@ -68,7 +118,7 @@ export function Services({ onRequest }: { onRequest: (title: string) => void }) 
                       <span>Call</span>
                     </a>
                     <a
-                      href={CONTACT.whatsapp}
+                      href={waLink(service.title)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center justify-center gap-1.5 rounded bg-[#e6f8ee] px-2 py-2 text-[10.5px] font-bold text-[#1a9e50] transition-colors hover:bg-[#d5f2e1]"
@@ -83,6 +133,17 @@ export function Services({ onRequest }: { onRequest: (title: string) => void }) 
           ))}
         </div>
 
+        {remaining > 0 && (
+          <div className="mt-7 text-center">
+            <button
+              type="button"
+              onClick={() => setShowAll(true)}
+              className="btn btn-outline !border-ink/20 !px-5 !py-3 !text-[12px]"
+            >
+              View All {filtered.length} Services <ArrowUpRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
       </div>
 
       {selected && (
@@ -147,7 +208,7 @@ export function Services({ onRequest }: { onRequest: (title: string) => void }) 
                   <Phone className="h-4 w-4" /> {CONTACT.phone}
                 </a>
                 <a
-                  href={CONTACT.whatsapp}
+                  href={waLink(selected.title)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-outline !py-3 !text-[12px]"
