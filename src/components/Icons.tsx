@@ -265,3 +265,53 @@ export const Google = (p: IconProps) => (
     <path fill="#EA4335" d="M12 6.1c1.5 0 2.8.5 3.9 1.5l2.9-2.9A10 10 0 0 0 3.1 7.6L6.4 10A5.9 5.9 0 0 1 12 6.1Z" />
   </svg>
 );
+
+export const Eye = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+export const Bolt = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M13 2.5 4.5 13.5H11l-1 8 8.5-11H12l1-8Z" />
+  </svg>
+);
+
+export const Tag = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M20.5 12.5 12.5 20.5a2 2 0 0 1-2.8 0l-6-6a2 2 0 0 1-.6-1.6l.5-6.4a2 2 0 0 1 1.9-1.9l6.4-.5a2 2 0 0 1 1.6.6l6 6a2 2 0 0 1 0 2.8Z" />
+    <circle cx="8.2" cy="8.2" r="1.4" />
+  </svg>
+);
+
+export const Grid = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <rect x="3.5" y="3.5" width="7" height="7" rx="1.5" />
+    <rect x="13.5" y="3.5" width="7" height="7" rx="1.5" />
+    <rect x="3.5" y="13.5" width="7" height="7" rx="1.5" />
+    <rect x="13.5" y="13.5" width="7" height="7" rx="1.5" />
+  </svg>
+);
+
+export const Cricket = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <circle cx="8.5" cy="15.5" r="4" />
+    <path d="M11.5 12.5 19 5M16 2.5 21.5 8M17.5 4l3.5 3.5" />
+  </svg>
+);
+
+export const Hanger = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <path d="M12 7.5a2 2 0 1 1 2-2" />
+    <path d="M12 7.5 3.8 13.4a1.4 1.4 0 0 0 .8 2.6h14.8a1.4 1.4 0 0 0 .8-2.6L12 7.5Z" />
+  </svg>
+);
+
+export const Ruler2 = (p: IconProps) => (
+  <svg {...base} {...p}>
+    <rect x="2.5" y="8" width="19" height="8" rx="1.5" />
+    <path d="M7 8v3M11 8v4M15 8v3M19 8v4" />
+  </svg>
+);

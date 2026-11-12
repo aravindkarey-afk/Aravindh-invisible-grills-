@@ -1,5 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react";
-import { CONTACT, FIELD_OPTIONS } from "../lib/data";
+import { CONTACT, FIELD_OPTIONS, waLink } from "../lib/data";
 import {
   ArrowUpRight,
   Check,
@@ -55,7 +55,7 @@ export function Contact({ initialService }: { initialService: string }) {
   };
 
   return (
-    <section id="contact" className="border-t border-ink/6 bg-white py-14 sm:py-16">
+    <section id="contact" className="border-t border-ink/6 bg-[#f7faf8] py-14 sm:py-16">
       <div className="wrap">
         <SectionHead
           title="Contact Us"
@@ -63,7 +63,7 @@ export function Contact({ initialService }: { initialService: string }) {
         />
 
         <div className="mt-9 grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="rounded-lg bg-navy p-5 text-white sm:p-6">
+          <div className="rounded-xl bg-navy p-5 text-white sm:p-6">
             <h3 className="font-display text-[1.3rem] font-extrabold">Get in Touch</h3>
             <p className="mt-2 text-[12px] leading-[1.75] text-white/60">
               Connect with us directly for a free site inspection, an honest price estimate and
@@ -151,7 +151,7 @@ export function Contact({ initialService }: { initialService: string }) {
             </div>
           </div>
 
-          <div className="rounded-lg border border-ink/10 bg-white p-5 shadow-[0_10px_40px_rgba(10,34,64,0.07)] sm:p-6">
+          <div className="rounded-xl border border-ink/10 bg-white p-5 shadow-[0_10px_40px_rgba(10,34,64,0.07)] sm:p-6">
             {submitted ? (
               <div className="flex h-full min-h-[380px] flex-col items-center justify-center text-center">
                 <span className="grid h-14 w-14 place-items-center rounded-full bg-leaf-soft text-brand">
@@ -179,7 +179,7 @@ export function Contact({ initialService }: { initialService: string }) {
                 </div>
                 <div className="mt-5 flex flex-wrap justify-center gap-2">
                   <a
-                    href={CONTACT.whatsapp}
+                    href={waLink(fields.service || "invisible grills")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-green !py-2.5 !text-[11.5px]"
