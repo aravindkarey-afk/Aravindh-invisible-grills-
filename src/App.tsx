@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { FloatingActions, Footer, Header } from "./components/Chrome";
-import { About, Areas, Hero, WhyUs } from "./sections/HomeSections";
+import { About, Areas, Hero, TrustStrip, WhyUs } from "./sections/HomeSections";
 import { Services } from "./sections/Services";
 import { Gallery } from "./sections/Gallery";
 import { Faq, Reviews } from "./sections/FaqReviews";
@@ -28,6 +28,7 @@ export default function App() {
       <main id="main">
         <Hero />
         <About />
+        <TrustStrip />
         <Services onRequest={requestService} />
         <WhyUs />
         <Gallery />

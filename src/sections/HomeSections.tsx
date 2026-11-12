@@ -413,3 +413,37 @@ export function Areas() {
     </section>
   );
 }
+
+/* ------------------------------------------------------- TRUST / MARQUEE */
+
+const trustPoints = [
+  "SS 316 Marine-Grade Cables",
+  "15-Year Cable Warranty",
+  "Free Doorstep Measurement",
+  "Same-Day Installation",
+  "UV-Stabilised HDPE Nets",
+  "Written Quote, No Hidden Charges",
+  "Own Trained Technicians",
+];
+
+export function TrustStrip() {
+  return (
+    <div className="overflow-hidden border-y border-ink/6 bg-white py-3.5">
+      <div className="animate-marquee flex w-max items-center gap-8 pr-8">
+        {[0, 1].map((copy) => (
+          <div key={copy} className="flex items-center gap-8" aria-hidden={copy === 1}>
+            {trustPoints.map((point) => (
+              <span
+                key={point}
+                className="flex items-center gap-2 text-[11px] font-semibold tracking-[0.02em] whitespace-nowrap text-[#43586c]"
+              >
+                <Check className="h-3.5 w-3.5 text-brand" strokeWidth={3} />
+                {point}
+              </span>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
